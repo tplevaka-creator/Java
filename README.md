@@ -21,11 +21,20 @@ A simple Java 21+ web application that mimics basic functionality of a deals lis
 
 ## Building
 
-Ensure you have Java 21+ and Maven installed.
+Ensure you have Java 21+ installed. You **do not need Maven**—the project includes a Maven wrapper.
 
 ```bash
 cd path/to/project
-mvn clean package
+# on Windows
+mvnw.cmd clean package
+# on Unix/Mac
+e.g. ./mvnw clean package
+```
+
+You can also run the bundled `run.bat` on Windows to build and start in one step:
+
+```bash
+run.bat
 ```
 
 ## Running
