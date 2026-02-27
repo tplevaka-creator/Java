@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Deals Site</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; }
+        .deal { border: 1px solid #ccc; padding:1rem; margin-bottom:1rem; }
+        .deal a { text-decoration: none; color: blue; }
+    </style>
+</head>
+<body>
+<h1>Latest Deals</h1>
+<div>
+    <input type="text" id="search" placeholder="Search deals..." />
+    <button onclick="loadDeals()">Search</button>
+</div>
+<div id="deals"></div>
+
+<script>
+    function loadDeals() {
+        const q = document.getElementById('search').value;
+        let url = '/api/deals';
+        if (q) {
+            url += '?q=' + encodeURIComponent(q);
+        }
+        fetch(url)
+            .then(r => r.json())
+            .then(data => {
+                const container = document.getElementById('deals');
+                container.innerHTML = '';
+                data.forEach(deal => {
+                    const div = document.createElement('div');
+                    div.className = 'deal';
+                    div.innerHTML = `<h2>${deal.title}</h2>` +
+                        `<p>${deal.description}</p>` +
+                        `<p><strong>\$${deal.price}</strong></p>` +
+                        `<p><a href="${deal.url}" target="_blank">View Deal</a></p>`;
+                    container.appendChild(div);
+                });
+            });
+    }
+
+    // load on page load
+    loadDeals();
+</script>
+</body>
+</html>
